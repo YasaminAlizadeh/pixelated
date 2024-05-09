@@ -28,4 +28,14 @@
   ::-webkit-scrollbar-thumb:active {
     background-color: #59597390;
   }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
 }
