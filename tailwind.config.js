@@ -15,6 +15,10 @@ module.exports = {
       fontFamily: {
         pixelify: ["Pixelify Sans", "sans-serif"],
       },
+      boxShadow: {
+        "line-1": "0 0 0 0.05rem #FDFDFD65",
+        "line-2": "0 0 0 0.075rem #FDFDFD65",
+      },
     },
   },
 };
