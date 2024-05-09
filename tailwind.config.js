@@ -12,6 +12,9 @@ module.exports = {
         "accent--orange": "#DC4A24",
         "accent--gray": "#94a3b8",
       },
+      fontFamily: {
+        pixelify: ["Pixelify Sans", "sans-serif"],
+      },
     },
   },
 };
