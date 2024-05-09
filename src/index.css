@@ -38,4 +38,9 @@
   input[type="number"] {
     -moz-appearance: textfield;
   }
+
+  input::selection {
+    background-color: #f6d0c6;
+    color: #131419;
+  }
 }
