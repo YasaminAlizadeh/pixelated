@@ -1,9 +1,11 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { FC, useContext, useEffect, useRef } from "react";
 import { CanvasContext, CanvasContextType } from "context/CanvasContext";
 
-const BackgroundCanvas = () => {
-  const [isGridDisplayed, setIsGridDisplayed] = useState(true);
+interface BackgroundCanvasProps {
+  isGridDisplayed: boolean;
+}
 
+const BackgroundCanvas: FC<BackgroundCanvasProps> = ({ isGridDisplayed }) => {
   const { selectedCanvasSize, pixelSize } = useContext(
     CanvasContext
   ) as CanvasContextType;
@@ -46,18 +48,11 @@ const BackgroundCanvas = () => {
     return () => {};
   }, [selectedCanvasSize, pixelSize, isGridDisplayed]);
 
-  const toggleDisplayGrid = () => setIsGridDisplayed((prevState) => !prevState);
-
   return (
-    <>
-      <canvas
-        ref={backgroundCanvasRef}
-        className="col-start-1 row-start-1 bg-white pointer-events-none rounded-xl shadow-md"
-      ></canvas>
-      <button onClick={() => toggleDisplayGrid()}>
-        {isGridDisplayed ? "Hide Grid" : "Display Grid"}
-      </button>
-    </>
+    <canvas
+      ref={backgroundCanvasRef}
+      className="col-start-1 row-start-1 bg-white pointer-events-none rounded-xl shadow-md"
+    ></canvas>
   );
 };
 

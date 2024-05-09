@@ -6,10 +6,12 @@ import PaintingCanvas from "./paintingCanvas";
 
 interface CanvasContainerProps {
   activeTool: ToolLabels;
+  isGridDisplayed: boolean;
 }
 
 const CanvasContainer: FC<CanvasContainerProps> = ({
-  activeTool = "brush",
+  activeTool,
+  isGridDisplayed,
 }) => {
   const { layers, updatePixelSize } = useContext(
     CanvasContext
@@ -38,7 +40,7 @@ const CanvasContainer: FC<CanvasContainerProps> = ({
       ref={containerRef}
       className="canvas__container relative grid place-items-center w-full h-full"
     >
-      <BackgroundCanvas />
+      <BackgroundCanvas isGridDisplayed={isGridDisplayed} />
 
       {layers.map((layer) => (
         <PaintingCanvas key={layer.id} id={layer.id} activeTool={activeTool} />

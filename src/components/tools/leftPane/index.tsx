@@ -1,6 +1,14 @@
+import { IconGrid4x4 } from "@tabler/icons-react";
+import ToolWrapper from "../ToolWrapper";
 import CanvasSizeForm from "./CanvasSizeForm";
+import { FC } from "react";
 
-const LeftPane = () => {
+interface LeftPaneProps {
+  isGridDisplayed: boolean;
+  toggleGrid: () => void;
+}
+
+const LeftPane: FC<LeftPaneProps> = ({ isGridDisplayed, toggleGrid }) => {
   return (
     <section>
       <header className="col-span-3">
@@ -9,6 +17,14 @@ const LeftPane = () => {
         </h1>
       </header>
       <CanvasSizeForm />
+
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:col-span-4 auto-rows-min gap-2">
+        <ToolWrapper
+          icon={<IconGrid4x4 />}
+          handleClick={toggleGrid}
+          isActive={isGridDisplayed}
+        />
+      </div>
     </section>
   );
 };
