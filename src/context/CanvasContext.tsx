@@ -37,7 +37,7 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
   const [selectedCanvasSize, setSelectedCanvasSize] = useState<{
     width: number;
     height: number;
-  }>({ width: 35, height: 35 });
+  }>({ width: 40, height: 40 });
   const [pixelSize, setPixelSize] = useState<number>(0);
   const [layers, setLayers] = useState<LayerDataType[]>([
     { id: "0", name: "Layer 0", data: "", isHidden: false },
