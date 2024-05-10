@@ -2,7 +2,7 @@ import { useEffect, useRef, useContext, FC, useState, useMemo } from "react";
 import { CanvasContext, CanvasContextType } from "context/CanvasContext";
 import { ColorContext, ColorContextType } from "context/ColorContext";
 import useHistory from "hooks/useHistory";
-import { getClickedColorInfo } from "app/utils/getClickedColor";
+import { getClickedColorInfo } from "utils/getClickedColor";
 import { ToolLabels } from "components/tools/rightPane";
 import CanvasMenu from "./canvasMenu";
 
