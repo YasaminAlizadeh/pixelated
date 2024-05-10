@@ -29,7 +29,7 @@ const CanvasMenu: React.FC<CanvasMenuProps> = ({
   useEffect(() => {
     const { width, height } = selectedCanvasSize;
 
-    setIsOnTheLeft(height >= width);
+    setIsOnTheLeft(height >= width * 0.6);
 
     return () => {};
   }, [selectedCanvasSize]);
@@ -38,7 +38,7 @@ const CanvasMenu: React.FC<CanvasMenuProps> = ({
     <div
       className={`absolute w-fit flex gap-2 items-center p-1 bg-gradient-to-br from-white to-light text-secondary shadow-md rounded-lg ${
         isOnTheLeft
-          ? "flex right-0 -top-2 -translate-y-full"
+          ? "flex flex-col right-full top-full -translate-x-2 -translate-y-full"
           : "right-full -bottom-2 translate-x-full translate-y-full"
       }`}
     >
