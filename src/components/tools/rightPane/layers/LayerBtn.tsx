@@ -13,9 +13,17 @@ import FormInput from "components/forms/FormInput";
 
 interface LayerBtnProps {
   id: string;
+  isSelected: boolean;
+  selectLayer: (id: string) => void;
+  toggleCheckbox: boolean;
 }
 
-const LayerBtn: FC<LayerBtnProps> = ({ id }) => {
+const LayerBtn: FC<LayerBtnProps> = ({
+  id,
+  isSelected,
+  selectLayer,
+  toggleCheckbox,
+}) => {
   const [isSrcValid, setIsSrcValid] = useState(false);
   const [isBeingEdited, setIsBeingEdited] = useState(false);
 
@@ -83,64 +91,76 @@ const LayerBtn: FC<LayerBtnProps> = ({ id }) => {
   }, [isBeingEdited, newLayerName]);
 
   return (
-    <div
-      onClick={() => updateActiveLayerID(id)}
-      className={`flex items-center gap-2 h-14 p-1 bg-white shadow-sm rounded-lg cursor-pointer ${
-        activeLayer === id
-          ? "bg-gradient-to-br from-accent--pink to-accent--orange text-light"
-          : ""
-      }`}
-    >
-      {isSrcValid ? (
-        <img
-          src={selectedLayer?.data}
-          draggable={false}
-          onError={() => setIsSrcValid(false)}
-          className="h-full w-full max-w-[3rem]  object-contain bg-white rounded-md shadow-md"
-        ></img>
-      ) : (
-        <div className="h-full w-full max-w-[3rem] object-contain bg-white rounded-md shadow-md"></div>
-      )}
-      <FormInput
-        id="layer-name"
-        forwardedRef={nameInputRef}
-        type="text"
-        value={newLayerName ?? ""}
-        handleChange={(e: ChangeEvent) =>
-          setNewLayerName((e.target as HTMLInputElement).value)
-        }
-        handleKeyDown={(event: React.KeyboardEvent) => {
-          if (event.key === "Enter") {
-            setIsBeingEdited(false);
-          }
-        }}
-        extendClasses={`bg-opacity-30 h-fit text-white font-normal ${
-          isBeingEdited ? "" : "hidden"
+    <div className="flex items-center gap-1 group">
+      <input
+        type="checkbox"
+        name=""
+        id=""
+        checked={isSelected}
+        onChange={() => selectLayer(id)}
+        className={`border-none rounded-sm shadow-sm z-10 bg-white w-3 h-3 group-hover:max-w-full transition-[max-width] ease-in-out duration-200 max-w-0 ${
+          toggleCheckbox ? "max-w-full" : "max-w-0"
         }`}
       />
-      <h4 ref={nameHeadingRef} className={`${isBeingEdited ? "hidden" : ""}`}>
-        {selectedLayer?.name}
-      </h4>
-      <div className="flex items-center p-1">
-        <button onClick={() => toggleLayerVisibility(id)}>
-          {selectedLayer?.isHidden ? (
-            <IconEyeOff size={18} stroke={1.5} />
-          ) : (
-            <IconEye size={18} stroke={1.5} />
-          )}
-        </button>
-
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            deleteLayer(id);
+      <div
+        onClick={() => updateActiveLayerID(id)}
+        className={`relative w-full grid grid-cols-[min(100%,3rem)_minmax(0,1fr)_auto] items-center gap-2 h-14 p-1 bg-white shadow-sm rounded-lg cursor-pointer ${
+          activeLayer === id
+            ? "bg-gradient-to-br from-accent--pink to-accent--orange text-light"
+            : ""
+        }`}
+      >
+        {isSrcValid ? (
+          <img
+            src={selectedLayer?.data}
+            draggable={false}
+            onError={() => setIsSrcValid(false)}
+            className="h-full w-full max-w-[3rem] object-contain bg-white rounded-md shadow-md"
+          ></img>
+        ) : (
+          <div className="h-full w-full max-w-[3rem] object-contain bg-white rounded-md shadow-md"></div>
+        )}
+        <FormInput
+          id="layer-name"
+          forwardedRef={nameInputRef}
+          type="text"
+          value={newLayerName ?? ""}
+          handleChange={(e: ChangeEvent) =>
+            setNewLayerName((e.target as HTMLInputElement).value)
+          }
+          handleKeyDown={(event: React.KeyboardEvent) => {
+            if (event.key === "Enter") {
+              setIsBeingEdited(false);
+            }
           }}
-          className={`p-1 ${
-            layers.length === 1 ? "opacity-50 pointer-events-none" : ""
+          extendClasses={`bg-opacity-30 h-fit text-white font-normal ${
+            isBeingEdited ? "" : "hidden"
           }`}
-        >
-          <IconTrash size={18} stroke={1.5} />
-        </button>
+        />
+        <h4 ref={nameHeadingRef} className={`${isBeingEdited ? "hidden" : ""}`}>
+          {selectedLayer?.name}
+        </h4>
+        <div className="flex items-center p-1">
+          <button onClick={() => toggleLayerVisibility(id)}>
+            {selectedLayer?.isHidden ? (
+              <IconEyeOff size={18} stroke={1.5} />
+            ) : (
+              <IconEye size={18} stroke={1.5} />
+            )}
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteLayer(id);
+            }}
+            className={`p-1 ${
+              layers.length === 1 ? "opacity-50 pointer-events-none" : ""
+            }`}
+          >
+            <IconTrash size={18} stroke={1.5} />
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -1,10 +1,12 @@
 import { createContext, useCallback, useState } from "react";
+import { PointChange } from "hooks/useHistory";
 
 export type LayerDataType = {
   id: string;
   name: string;
   data: string;
   isHidden: boolean;
+  defaultHistory?: PointChange[][];
 };
 
 export type CanvasContextType = {
@@ -22,11 +24,15 @@ export type CanvasContextType = {
   updateActiveLayerID: (id: string) => void;
   layers: LayerDataType[];
   reorderLayers: (newLayers: LayerDataType[]) => void;
+  mergeSelectedLayers: () => void;
   addLayer: () => void;
   deleteLayer: (id: string) => void;
   updateLayerData: (id: string, newData: string) => void;
   updateLayerName: (id: string, newName: string) => void;
   toggleLayerVisibility: (id: string) => void;
+  selectedLayers: { [id: string]: PointChange[][] };
+  toggleLayerInSelectedLayers: (id: string) => void;
+  getSelectedLayerData: (id: string, data: PointChange[][]) => void;
 };
 
 export const CanvasContext = createContext<CanvasContextType | null>(null);
@@ -43,6 +49,9 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
     { id: "0", name: "Layer 0", data: "", isHidden: false },
   ]);
   const [activeLayer, setActiveLayer] = useState<string>("0");
+  const [selectedLayers, setSelectedLayers] = useState<{
+    [id: string]: PointChange[][];
+  }>({});
 
   const updatePixelSize = (container: HTMLElement) => {
     if (!container) return;
@@ -131,6 +140,77 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const reorderLayers = (newLayers: LayerDataType[]) => setLayers(newLayers);
 
+  // const getBlobData = async (blobURL: string) => {
+  //   const response = await fetch(blobURL);
+  //   const blobData = await response.blob();
+  //   return blobData;
+  // };
+
+  const mergeSelectedLayers = useCallback(async () => {
+    console.log("called");
+
+    const newCanvasID = `${new Date().getTime()}`;
+
+    const newMergedLayer: LayerDataType = {
+      id: newCanvasID,
+      name: "new layer",
+      data: "",
+      isHidden: false,
+    };
+
+    const newLayerData: PointChange[][] = [];
+
+    Object.keys(selectedLayers).forEach((id) =>
+      newLayerData.push(...selectedLayers[id])
+    );
+
+    newMergedLayer.defaultHistory = newLayerData;
+
+    const indexes: number[] = [];
+
+    for (let i = 0; i < Object.keys(selectedLayers).length; i++) {
+      for (let j = 0; j < layers.length; j++) {
+        if (Object.keys(selectedLayers)[i] === layers[j].id) indexes.push(j);
+      }
+    }
+
+    setLayers((prevLayers) => {
+      prevLayers = prevLayers.filter(
+        (item) => !Object.keys(selectedLayers).includes(item.id)
+      );
+
+      prevLayers.splice(Math.min(...indexes), 0, newMergedLayer);
+
+      return prevLayers;
+    });
+
+    setActiveLayer(newCanvasID);
+    setSelectedLayers({});
+  }, [layers, selectedLayers]);
+
+  const toggleLayerInSelectedLayers = (id: string) =>
+    setSelectedLayers((prevLayers) => {
+      if (Object.keys(prevLayers).includes(id)) {
+        const newLayers = { ...prevLayers };
+        delete newLayers[id];
+
+        return newLayers;
+      } else return { ...prevLayers, [id]: [[]] };
+    });
+
+  const getSelectedLayerData = (id: string, data: PointChange[][]) => {
+    setSelectedLayers((prevLayers) => {
+      if (!Object.keys(selectedLayers).includes(id)) return prevLayers;
+      else {
+        const newLayers = { ...prevLayers };
+
+        newLayers[id] = data;
+
+        return newLayers;
+      }
+    });
+  };
+
   return (
     <CanvasContext.Provider
       value={{
@@ -142,11 +222,15 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
         updateActiveLayerID,
         layers,
         reorderLayers,
+        mergeSelectedLayers,
         addLayer,
         deleteLayer,
         updateLayerData,
         updateLayerName,
         toggleLayerVisibility,
+        selectedLayers,
+        toggleLayerInSelectedLayers,
+        getSelectedLayerData,
       }}
     >
       {children}

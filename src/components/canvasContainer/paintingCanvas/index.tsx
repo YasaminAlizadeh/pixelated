@@ -1,17 +1,23 @@
 import { useEffect, useRef, useContext, FC, useState, useMemo } from "react";
 import { CanvasContext, CanvasContextType } from "context/CanvasContext";
 import { ColorContext, ColorContextType } from "context/ColorContext";
-import useHistory from "hooks/useHistory";
+import useHistory, { PointChange } from "hooks/useHistory";
 import { getClickedColorInfo } from "utils/getClickedColor";
 import { ToolLabels } from "components/tools/rightPane";
 import CanvasMenu from "./canvasMenu";
+import { historiesAreEqual } from "utils/historiesAreEqual";
 
 interface canvasProps {
   id: string;
   activeTool?: ToolLabels;
+  defaultHistory?: PointChange[][];
 }
 
-const PaintingCanvas: FC<canvasProps> = ({ id, activeTool }) => {
+const PaintingCanvas: FC<canvasProps> = ({
+  id,
+  activeTool,
+  defaultHistory,
+}) => {
   const [isActiveLayer, setIsActiveLayer] = useState(false);
 
   const {
@@ -20,12 +26,14 @@ const PaintingCanvas: FC<canvasProps> = ({ id, activeTool }) => {
     layers,
     activeLayer,
     updateLayerData,
+    selectedLayers,
+    getSelectedLayerData,
   } = useContext(CanvasContext) as CanvasContextType;
   const { colorHistory, addToColorHistory } = useContext(
     ColorContext
   ) as ColorContextType;
 
-  const selectedLayer = useMemo(
+  const currentLayer = useMemo(
     () => layers.find((layer) => layer.id === id),
     [id, layers]
   );
@@ -42,7 +50,11 @@ const PaintingCanvas: FC<canvasProps> = ({ id, activeTool }) => {
     isUndoPossible,
     isRedoPossible,
     clearHistory,
-  } = useHistory(selectedCanvasSize.width, selectedCanvasSize.height);
+  } = useHistory(
+    selectedCanvasSize.width,
+    selectedCanvasSize.height,
+    defaultHistory
+  );
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -51,6 +63,16 @@ const PaintingCanvas: FC<canvasProps> = ({ id, activeTool }) => {
 
     return () => {};
   }, [id, activeLayer]);
+
+  useEffect(() => {
+    if (
+      Object.keys(selectedLayers).includes(id) &&
+      !historiesAreEqual(selectedLayers[id], currentState)
+    )
+      getSelectedLayerData(id, currentState);
+
+    return () => {};
+  }, [id, selectedLayers, currentState]);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -194,7 +216,7 @@ const PaintingCanvas: FC<canvasProps> = ({ id, activeTool }) => {
 
         const newBlobURL = URL.createObjectURL(blob);
 
-        if (selectedLayer && selectedLayer?.data !== newBlobURL)
+        if (currentLayer && currentLayer?.data !== newBlobURL)
           updateLayerData(id, newBlobURL);
       });
     }
@@ -206,7 +228,7 @@ const PaintingCanvas: FC<canvasProps> = ({ id, activeTool }) => {
     <section
       className={`relative col-start-1 row-start-1 rounded-xl ${
         isActiveLayer ? "" : "pointer-events-none"
-      } ${selectedLayer?.isHidden ? "hidden" : ""}`}
+      } ${currentLayer?.isHidden ? "hidden" : ""}`}
     >
       <canvas id={id} ref={canvasRef} className="rounded-xl"></canvas>
 

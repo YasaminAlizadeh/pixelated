@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
 
-interface PointChange {
+export interface PointChange {
   x: number;
   y: number;
   color: string;
@@ -27,9 +27,12 @@ interface useHistoryState {
 
 const useHistory = (
   canvasWidth: number,
-  canvasHeight: number
+  canvasHeight: number,
+  defaultHistory?: PointChange[][]
 ): useHistoryState => {
-  const [history, setHistory] = useState<PointChange[][]>([[]]);
+  const [history, setHistory] = useState<PointChange[][]>(
+    defaultHistory ?? [[]]
+  );
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
   const [currentMoveIndex, setCurrentMoveIndex] = useState<number>(0);
 
@@ -44,6 +47,13 @@ const useHistory = (
 
     return () => {};
   }, [canvasHeight, canvasWidth]);
+
+  useEffect(() => {
+    if (!defaultHistory) return;
+    setCurrentMoveIndex(defaultHistory.length - 1);
+
+    return () => {};
+  }, [defaultHistory]);
 
   const memoizedFindLastChangeOfPoint = useMemo(() => {
     return (arr: PointChange[] | PointChange[][], point: PointChange) => {

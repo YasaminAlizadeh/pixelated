@@ -43,7 +43,12 @@ const CanvasContainer: FC<CanvasContainerProps> = ({
       <BackgroundCanvas isGridDisplayed={isGridDisplayed} />
 
       {layers.map((layer) => (
-        <PaintingCanvas key={layer.id} id={layer.id} activeTool={activeTool} />
+        <PaintingCanvas
+          key={layer.id}
+          id={layer.id}
+          activeTool={activeTool}
+          defaultHistory={layer.defaultHistory}
+        />
       ))}
     </div>
   );
