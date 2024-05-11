@@ -210,7 +210,7 @@ const PaintingCanvas: FC<canvasProps> = ({
   }, [selectedCanvasSize, currentState, pixelSize]);
 
   useEffect(() => {
-    if (currentState.length && !isDrawing) {
+    if (currentState && !isDrawing) {
       canvasRef.current?.toBlob((blob) => {
         if (!blob) return;
 
