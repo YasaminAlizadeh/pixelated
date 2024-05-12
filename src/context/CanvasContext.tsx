@@ -141,8 +141,6 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
   const reorderLayers = (newLayers: LayerDataType[]) => setLayers(newLayers);
 
   const mergeSelectedLayers = useCallback(() => {
-    console.log("called");
-
     const newCanvasID = `${new Date().getTime()}`;
 
     const newMergedLayer: LayerDataType = {
@@ -159,6 +157,7 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
     );
 
     newMergedLayer.defaultHistory = newLayerData;
+    newMergedLayer.defaultHistory.push([]);
 
     const indexes: number[] = [];
 
