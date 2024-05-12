@@ -98,7 +98,8 @@ const LayerBtn: FC<LayerBtnProps> = ({
         id=""
         checked={isSelected}
         onChange={() => selectLayer(id)}
-        className={`border-none rounded-sm shadow-sm z-10 bg-white w-3 h-3 group-hover:max-w-full transition-[max-width] ease-in-out duration-200 max-w-0 ${
+        className={`border-none rounded-sm shadow-sm z-10 bg-white w-3 h-3 max-w-0 group-hover:max-w-full transition-[max-width] ease-in-out duration-200 checked:bg-accent--pink
+        checked:focus:bg-accent--pink   checked:hover:bg-accent--pink checked:outline-none focus:outline-none active:outline-none focus:ring-0 focus:ring-transparent focus:ring-offset-transparent ${
           toggleCheckbox ? "max-w-full" : "max-w-0"
         }`}
       />
