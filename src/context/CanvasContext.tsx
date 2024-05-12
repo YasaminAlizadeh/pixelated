@@ -147,7 +147,7 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const newMergedLayer: LayerDataType = {
       id: newCanvasID,
-      name: "new layer",
+      name: "New Layer",
       data: "",
       isHidden: false,
     };
