@@ -144,9 +144,9 @@ const LayerBtn: FC<LayerBtnProps> = ({
         <div className="flex items-center p-1">
           <button onClick={() => toggleLayerVisibility(id)}>
             {selectedLayer?.isHidden ? (
-              <IconEyeOff size={18} stroke={1.5} />
+              <IconEyeOff size={18} stroke={1.75} />
             ) : (
-              <IconEye size={18} stroke={1.5} />
+              <IconEye size={18} stroke={1.75} />
             )}
           </button>
 
@@ -159,7 +159,7 @@ const LayerBtn: FC<LayerBtnProps> = ({
               layers.length === 1 ? "opacity-50 pointer-events-none" : ""
             }`}
           >
-            <IconTrash size={18} stroke={1.5} />
+            <IconTrash size={18} stroke={1.75} />
           </button>
         </div>
       </div>

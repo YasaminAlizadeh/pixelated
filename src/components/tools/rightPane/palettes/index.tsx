@@ -19,7 +19,7 @@ const Palettes: FC<PalettesProps> = ({ isMenuOpen = false, toggleMenu }) => {
       <header className="flex items-center justify-between text-xs">
         <h3>Palettes</h3>
         <button onClick={() => toggleMenu()}>
-          <IconSettings size={19} />
+          <IconSettings size={19} stroke={1.75} />
         </button>
       </header>
 

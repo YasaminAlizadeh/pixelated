@@ -61,11 +61,11 @@ const RightPane: React.FC<{
   }[] = [
     {
       label: "brush",
-      icon: <IconBrush stroke={1.5} />,
+      icon: <IconBrush stroke={1.75} />,
     },
     {
       label: "eraser",
-      icon: <IconEraser stroke={1.5} />,
+      icon: <IconEraser stroke={1.75} />,
       handleClick: () =>
         addToColorHistory({
           hex: "transparent",
@@ -76,11 +76,11 @@ const RightPane: React.FC<{
     },
     {
       label: "fill",
-      icon: <IconBucket stroke={1.5} />,
+      icon: <IconBucket stroke={1.75} />,
     },
     {
       label: "eyedropper",
-      icon: <IconDroplet stroke={1.5} />,
+      icon: <IconDroplet stroke={1.75} />,
     },
   ];
 

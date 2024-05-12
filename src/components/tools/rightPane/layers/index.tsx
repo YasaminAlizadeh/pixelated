@@ -29,13 +29,13 @@ const Layers = () => {
         <div className="flex items-center gap-1">
           {Object.keys(selectedLayers).length > 1 ? (
             <button onClick={() => mergeSelectedLayers()}>
-              <IconLayersIntersect size={19} />
+              <IconLayersIntersect size={19} stroke={1.75} />
             </button>
           ) : (
             <></>
           )}
           <button onClick={() => addLayer()}>
-            <IconPlus size={19} />
+            <IconPlus size={19} stroke={1.75} />
           </button>
         </div>
       </header>

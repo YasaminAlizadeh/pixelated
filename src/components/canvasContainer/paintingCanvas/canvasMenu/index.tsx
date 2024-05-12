@@ -43,19 +43,19 @@ const CanvasMenu: React.FC<CanvasMenuProps> = ({
       }`}
     >
       <CanvasMenuBtn
-        label={<IconWashDry size={23} stroke={1.65} />}
+        label={<IconWashDry size={23} stroke={1.75} />}
         tooltip="clear"
         handleClick={handleClear}
         isDisabled={!isUndoPossible}
       />
       <CanvasMenuBtn
-        label={<IconRotate2 size={23} stroke={1.65} />}
+        label={<IconRotate2 size={23} stroke={1.75} />}
         tooltip="undo"
         handleClick={handleUndo}
         isDisabled={!isUndoPossible}
       />
       <CanvasMenuBtn
-        label={<IconRotateClockwise2 size={23} stroke={1.65} />}
+        label={<IconRotateClockwise2 size={23} stroke={1.75} />}
         tooltip="redo"
         handleClick={handleRedo}
         isDisabled={!isRedoPossible}
