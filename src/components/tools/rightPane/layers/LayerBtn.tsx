@@ -134,11 +134,16 @@ const LayerBtn: FC<LayerBtnProps> = ({
               setIsBeingEdited(false);
             }
           }}
-          extendClasses={`bg-opacity-30 h-fit text-white font-normal ${
+          extendClasses={`bg-opacity-30 h-fit font-normal ${
             isBeingEdited ? "" : "hidden"
           }`}
         />
-        <h4 ref={nameHeadingRef} className={`${isBeingEdited ? "hidden" : ""}`}>
+        <h4
+          ref={nameHeadingRef}
+          className={`w-full text-ellipsis whitespace-nowrap overflow-hidden ${
+            isBeingEdited ? "hidden" : ""
+          }`}
+        >
           {selectedLayer?.name}
         </h4>
         <div className="flex items-center p-1">
