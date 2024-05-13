@@ -50,7 +50,7 @@ const FormInput: FC<FormInputProps> = ({
         onKeyDown={handleKeyDown}
         onFocus={(e: ChangeEvent) => (e.target as HTMLInputElement).select()}
         inputMode={type === "number" ? "numeric" : "text"}
-        className="w-full h-full p-1.5 border-none active:shadow-line-2 active:shadow-accent--pink focus-within:shadow-line-1 focus-within:shadow-accent--pink focus-within:outline-1 focus:ring-0 font-inherit text-inherit [font-size:inherit] rounded-lg bg-transparent"
+        className="w-full h-full p-1.5 border-none active:shadow-line-2 active:shadow-accent--pink focus-within:shadow-line-1 focus-within:shadow-accent--pink focus-within:outline-1 focus:ring-0 font-inherit text-inherit [font-size:inherit] rounded-lg bg-transparent placeholder:text-accent--gray placeholder:font-normal"
       />
     </div>
   );
