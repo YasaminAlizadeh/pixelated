@@ -23,7 +23,7 @@ const ToolWrapper: React.FC<ToolWrapperProps> = ({
     >
       <button
         onClick={handleClick}
-        className={`w-full h-full flex justify-center items-center bg-gradient-to-br rounded-xl shadow-sm active:shadow-inner transition-[from,to,color] ease-in-out duration-300 ${
+        className={`w-full h-full flex justify-center items-center bg-gradient-to-br rounded-xl shadow-md active:shadow-inner-md transition-[from,to,color] ease-in-out duration-300 ${
           isActive
             ? "from-accent--orange to-accent--pink text-light"
             : "from-white via-white to-light"

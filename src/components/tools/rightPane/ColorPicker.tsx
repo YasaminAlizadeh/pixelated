@@ -33,7 +33,7 @@ const ColorPicker = () => {
           ),
         ]}
         disableAlpha={true}
-        className="!shadow-sm"
+        className="!shadow-md"
         styles={{
           default: {
             picker: {

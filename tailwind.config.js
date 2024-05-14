@@ -17,6 +17,7 @@ module.exports = {
       boxShadow: {
         "line-1": "0 0 0 0.05rem #FDFDFD65",
         "line-2": "0 0 0 0.075rem #FDFDFD65",
+        "inner-md": "inset 0 4px 6px 0 rgb(0 0 0 / 0.15)",
       },
     },
   },

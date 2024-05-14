@@ -60,8 +60,6 @@ const Layers = () => {
           ))}
         </Reorder.Group>
       </div>
-
-      {/* Export / Import */}
     </div>
   );
 };
