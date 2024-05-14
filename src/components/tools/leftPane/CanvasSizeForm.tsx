@@ -39,6 +39,7 @@ const CanvasSizeForm = () => {
     const handleClickOutsideForm: EventListener = (e) => {
       if (!canvasFormRef.current?.contains(e.target as Node)) {
         setIsChanging(false);
+
         setInputValues({
           width: `${selectedCanvasSize.width}`,
           height: `${selectedCanvasSize.height}`,
@@ -52,10 +53,16 @@ const CanvasSizeForm = () => {
   }, [selectedCanvasSize]);
 
   const handleFormSubmit = useCallback(() => {
+    if (!inputValues.width || !inputValues.height) return;
+
+    const widthNumberValue = parseInt(inputValues.width);
+    const heightNumberValue = parseInt(inputValues.height);
+
     updateCanvasSize({
-      width: Number(inputValues.width),
-      height: Number(inputValues.height),
+      width: widthNumberValue,
+      height: heightNumberValue,
     });
+
     setIsChanging(false);
   }, [inputValues, updateCanvasSize]);
 
@@ -73,23 +80,27 @@ const CanvasSizeForm = () => {
           type="number"
           label="width:"
           value={inputValues.width}
+          min={1}
+          max={200}
           handleChange={(e: ChangeEvent<HTMLInputElement>) =>
             setInputValues((prevState) => ({
               ...prevState,
-              width: (e.target as HTMLInputElement).value,
+              width: e.target.value,
             }))
           }
         />
-        <span className="text-xs">✕</span>
+        <span className="text-xs mt-5">✕</span>
         <FormInput
           id="height"
           type="number"
           label="height:"
           value={inputValues.height}
+          min={1}
+          max={200}
           handleChange={(e: ChangeEvent<HTMLInputElement>) =>
             setInputValues((prevState) => ({
               ...prevState,
-              height: (e.target as HTMLInputElement).value,
+              height: e.target.value,
             }))
           }
         />
