@@ -7,6 +7,7 @@ export type LayerDataType = {
   data: string;
   isHidden: boolean;
   defaultHistory?: PointChange[][];
+  canvasRef?: HTMLCanvasElement;
 };
 
 export type CanvasContextType = {
@@ -33,6 +34,7 @@ export type CanvasContextType = {
   selectedLayers: { [id: string]: PointChange[][] };
   toggleLayerInSelectedLayers: (id: string) => void;
   getSelectedLayerData: (id: string, data: PointChange[][]) => void;
+  getCanvasRef: (id: string, canvas: HTMLCanvasElement) => void;
 };
 
 export const CanvasContext = createContext<CanvasContextType | null>(null);
@@ -204,6 +206,16 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
+  const getCanvasRef = (id: string, canvas: HTMLCanvasElement) => {
+    setLayers((prevLayers) =>
+      prevLayers.map((layer) =>
+        layer.id === id ? { ...layer, canvasRef: canvas } : layer
+      )
+    );
+  };
+
+  console.log(layers);
+
   return (
     <CanvasContext.Provider
       value={{
@@ -224,6 +236,7 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
         selectedLayers,
         toggleLayerInSelectedLayers,
         getSelectedLayerData,
+        getCanvasRef,
       }}
     >
       {children}

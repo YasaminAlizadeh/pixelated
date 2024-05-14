@@ -2,6 +2,7 @@ import { IconGrid4x4 } from "@tabler/icons-react";
 import ToolWrapper from "../ToolWrapper";
 import CanvasSizeForm from "./CanvasSizeForm";
 import { FC } from "react";
+import ExportImage from "./ExportImage";
 
 interface LeftPaneProps {
   isGridDisplayed: boolean;
@@ -24,6 +25,7 @@ const LeftPane: FC<LeftPaneProps> = ({ isGridDisplayed, toggleGrid }) => {
           handleClick={toggleGrid}
           isActive={isGridDisplayed}
         />
+        <ExportImage />
       </div>
     </section>
   );

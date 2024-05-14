@@ -28,6 +28,7 @@ const PaintingCanvas: FC<canvasProps> = ({
     updateLayerData,
     selectedLayers,
     getSelectedLayerData,
+    getCanvasRef,
   } = useContext(CanvasContext) as CanvasContextType;
   const { colorHistory, addToColorHistory } = useContext(
     ColorContext
@@ -57,6 +58,12 @@ const PaintingCanvas: FC<canvasProps> = ({
   );
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (canvasRef.current) getCanvasRef(id, canvasRef.current);
+
+    return () => {};
+  }, []);
 
   useEffect(() => {
     setIsActiveLayer(id === activeLayer);
