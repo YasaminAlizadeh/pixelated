@@ -54,7 +54,7 @@ const FormInput: FC<FormInputProps> = ({
       {label ? (
         <label
           htmlFor={id}
-          className="text-accent--gray text-xs font-normal capitalize"
+          className="text-accent--gray font-normal capitalize"
         >
           {label}
         </label>
