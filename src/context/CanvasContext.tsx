@@ -214,8 +214,6 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   };
 
-  console.log(layers);
-
   return (
     <CanvasContext.Provider
       value={{

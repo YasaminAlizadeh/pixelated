@@ -1,11 +1,10 @@
 import { FC, useEffect, useRef } from "react";
-import { IconCheck, IconDots, IconEdit, IconTrash } from "@tabler/icons-react";
+import { IconDots, IconEdit, IconTrash } from "@tabler/icons-react";
 
 interface PaletteOptionsProps {
   id: string;
   isOpen: boolean;
   toggleOptions: (newState: boolean) => void;
-  isBeingEdited: boolean;
   editPalette: () => void;
   deletePalette: (id: string) => void;
 }
@@ -14,7 +13,6 @@ const PaletteOptions: FC<PaletteOptionsProps> = ({
   id,
   isOpen,
   toggleOptions,
-  isBeingEdited,
   editPalette,
   deletePalette,
 }) => {
@@ -39,22 +37,13 @@ const PaletteOptions: FC<PaletteOptionsProps> = ({
 
   return (
     <>
-      {isBeingEdited ? (
-        <button
-          onClick={editPalette}
-          className="grid place-items-center ml-auto p-1 rounded-full bg-accent--pink text-white"
-        >
-          <IconCheck size={17} />
-        </button>
-      ) : (
-        <button
-          ref={optionsBtnRef}
-          onClick={() => toggleOptions(!isOpen)}
-          className="grid place-items-center ml-auto rounded-full"
-        >
-          <IconDots size={20} />
-        </button>
-      )}
+      <button
+        ref={optionsBtnRef}
+        onClick={() => toggleOptions(!isOpen)}
+        className="grid place-items-center ml-auto rounded-full"
+      >
+        <IconDots size={20} />
+      </button>
 
       {isOpen ? (
         <ul
