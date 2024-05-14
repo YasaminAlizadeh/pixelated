@@ -36,8 +36,8 @@ const CanvasSizeForm = () => {
   }, [inputValues, selectedCanvasSize]);
 
   useEffect(() => {
-    const handleClickOutsideForm = (e: MouseEvent) => {
-      if (!canvasFormRef.current?.contains(e.target as HTMLElement)) {
+    const handleClickOutsideForm: EventListener = (e) => {
+      if (!canvasFormRef.current?.contains(e.target as Node)) {
         setIsChanging(false);
         setInputValues({
           width: `${selectedCanvasSize.width}`,
@@ -73,7 +73,7 @@ const CanvasSizeForm = () => {
           type="number"
           label="width:"
           value={inputValues.width}
-          handleChange={(e: ChangeEvent) =>
+          handleChange={(e: ChangeEvent<HTMLInputElement>) =>
             setInputValues((prevState) => ({
               ...prevState,
               width: (e.target as HTMLInputElement).value,
@@ -86,7 +86,7 @@ const CanvasSizeForm = () => {
           type="number"
           label="height:"
           value={inputValues.height}
-          handleChange={(e: ChangeEvent) =>
+          handleChange={(e: ChangeEvent<HTMLInputElement>) =>
             setInputValues((prevState) => ({
               ...prevState,
               height: (e.target as HTMLInputElement).value,

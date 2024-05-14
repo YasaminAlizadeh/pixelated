@@ -48,7 +48,7 @@ const LayerBtn: FC<LayerBtnProps> = ({
 
   const toggleEditableName = () => setIsBeingEdited((prevState) => !prevState);
 
-  const stopEditingIfClickedOutside = (e: MouseEvent) => {
+  const stopEditingIfClickedOutside: EventListener = (e) => {
     if (
       !nameHeadingRef.current?.contains(e.target as HTMLElement) &&
       !nameInputRef.current?.contains(e.target as HTMLElement)
@@ -126,8 +126,8 @@ const LayerBtn: FC<LayerBtnProps> = ({
           forwardedRef={nameInputRef}
           type="text"
           value={newLayerName ?? ""}
-          handleChange={(e: ChangeEvent) =>
-            setNewLayerName((e.target as HTMLInputElement).value)
+          handleChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setNewLayerName(e.target.value)
           }
           handleKeyDown={(event: React.KeyboardEvent) => {
             if (event.key === "Enter") {
