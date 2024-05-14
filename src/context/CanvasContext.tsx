@@ -154,9 +154,9 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const newLayerData: PointChange[][] = [];
 
-    Object.keys(selectedLayers).forEach((id) =>
-      newLayerData.push(...selectedLayers[id])
-    );
+    Object.keys(selectedLayers)
+      .sort((a, b) => Number(a) - Number(b))
+      .forEach((id) => newLayerData.push(...selectedLayers[id]));
 
     newMergedLayer.defaultHistory = newLayerData;
     newMergedLayer.defaultHistory.push([]);
