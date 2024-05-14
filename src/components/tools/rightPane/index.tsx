@@ -1,11 +1,10 @@
-import React, { ReactElement, useContext, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import {
   IconBrush,
   IconBucket,
   IconDroplet,
   IconEraser,
 } from "@tabler/icons-react";
-import { ColorContext, ColorContextType } from "context/ColorContext";
 import ColorPicker from "./ColorPicker";
 import ToolWrapper from "../ToolWrapper";
 import Palettes from "./palettes";
@@ -52,8 +51,6 @@ const RightPane: React.FC<{
 }> = ({ activeTool, toggleActiveTool }) => {
   const [isPalettesOpen, setIsPalettesOpen] = useState(false);
 
-  const { addToColorHistory } = useContext(ColorContext) as ColorContextType;
-
   const appTools: {
     label: ToolLabels;
     icon: ReactElement;
@@ -66,13 +63,6 @@ const RightPane: React.FC<{
     {
       label: "eraser",
       icon: <IconEraser stroke={1.75} />,
-      handleClick: () =>
-        addToColorHistory({
-          hex: "transparent",
-          rgb: { r: 0, g: 0, b: 0, a: 0 },
-          hsl: { h: 0, s: 0, l: 0, a: 0 },
-          isLight: true,
-        }),
     },
     {
       label: "fill",

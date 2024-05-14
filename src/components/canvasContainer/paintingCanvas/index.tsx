@@ -119,20 +119,24 @@ const PaintingCanvas: FC<canvasProps> = ({
 
       const lastSelectedColor = colorHistory[colorHistory.length - 1];
 
-      if (activeTool === "brush" || activeTool === "eraser") {
+      if (activeTool === "brush") {
         handleDraw({
           x: clickedPixelX,
           y: clickedPixelY,
           color: lastSelectedColor.hex,
+        });
+      } else if (activeTool === "eraser") {
+        handleDraw({
+          x: clickedPixelX,
+          y: clickedPixelY,
+          color: "transparent",
         });
       } else if (activeTool === "fill") {
         handleFill(
           clickedPixelX,
           clickedPixelY,
           clickedColor,
-          lastSelectedColor.hex !== "transparent"
-            ? lastSelectedColor.hex
-            : colorHistory[colorHistory.length - 2].hex
+          lastSelectedColor.hex
         );
       } else if (activeTool === "eyedropper") {
         const selectedColor = getClickedColorInfo(activeCtx, x, y);
