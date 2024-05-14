@@ -97,7 +97,7 @@ const CanvasSizeForm = () => {
         <button
           type="button"
           onClick={() => handleFormSubmit()}
-          className={`aspect-square h-full grid place-items-center bg-gradient-to-br from-accent--pink to-accent--orange hover:opacity-90 text-white rounded-lg overflow-hidden transition-[width,height,opacity] ease-in-out duration-200 ${
+          className={`aspect-square h-full max-h-[65%] self-end grid place-items-center bg-gradient-to-br from-accent--pink to-accent--orange hover:opacity-90 text-white rounded-lg overflow-hidden transition-[width,height,opacity] ease-in-out duration-200 ${
             isChanging ? "w-full h-full" : "w-0 h-0"
           }`}
         >
