@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import { ColorContext, ColorContextType } from "context/ColorContext";
-import Palette from "./Palette";
+import { Palette } from "./Palette";
 import PalettesMenu from "./PalettesMenu";
 import { IconSettings } from "@tabler/icons-react";
 
@@ -43,7 +43,7 @@ const Palettes: FC<PalettesProps> = ({ isMenuOpen = false, toggleMenu }) => {
 
           {/* Backdrop */}
           <div
-            className="fixed top-0 left-0 h-screen w-screen bg-dark bg-opacity-50 z-10 backdrop-blur-sm"
+            className="fixed top-0 left-0 h-screen w-screen bg-dark bg-opacity-60 z-10 backdrop-blur-md"
             role="presentation"
           ></div>
         </>
