@@ -91,16 +91,16 @@ const LayerBtn: FC<LayerBtnProps> = ({
   }, [isBeingEdited, newLayerName]);
 
   return (
-    <div className="flex items-center gap-1 group">
+    <div className="flex items-center group">
       <input
         type="checkbox"
-        name=""
-        id=""
+        name={`layer_${id}`}
+        id={`layer-${id}`}
         checked={isSelected}
         onChange={() => selectLayer(id)}
-        className={`border-none rounded-sm shadow-md z-10 bg-white w-3 h-3 max-w-0 group-hover:max-w-full transition-[max-width] ease-in-out duration-200 checked:bg-accent--pink
-        checked:focus:bg-accent--pink   checked:hover:bg-accent--pink checked:outline-none focus:outline-none active:outline-none focus:ring-0 focus:ring-transparent focus:ring-offset-transparent ${
-          toggleCheckbox ? "max-w-full" : "max-w-0"
+        className={`border-none rounded-sm shadow-md z-10 bg-white w-3 h-3 max-w-0 group-hover:max-w-full group-hover:mr-1 transition-[max-width,margin] ease-in-out duration-200 checked:bg-accent--pink
+        checked:focus:bg-accent--pink   checked:hover:bg-accent--pink checked:outline-none focus:outline-none active:outline-none focus:ring-0 focus:ring-transparent focus:ring-offset-transparent overflow-hidden ${
+          toggleCheckbox ? "max-w-full mr-1" : "max-w-0"
         }`}
       />
       <div
