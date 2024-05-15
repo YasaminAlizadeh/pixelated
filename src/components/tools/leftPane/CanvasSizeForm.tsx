@@ -72,7 +72,7 @@ const CanvasSizeForm = () => {
         <h3>Canvas Size</h3>
       </header>
       <form
-        className="w-full grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto] grid-rows-1 place-items-center gap-1 py-4"
+        className="w-full grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto] grid-rows-1 place-items-center gap-1"
         ref={canvasFormRef}
       >
         <FormInput

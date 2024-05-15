@@ -11,7 +11,7 @@ interface LeftPaneProps {
 
 const LeftPane: FC<LeftPaneProps> = ({ isGridDisplayed, toggleGrid }) => {
   return (
-    <section>
+    <section className="flex flex-col gap-4 p-2">
       <header className="col-span-3">
         <h1 className="font-pixelify text-4xl bg-gradient-to-br from-accent--orange to-accent--pink w-fit text-transparent bg-clip-text mb-4">
           Pixelated
