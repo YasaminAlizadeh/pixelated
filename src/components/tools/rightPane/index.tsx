@@ -77,7 +77,7 @@ const RightPane: React.FC<{
   const togglePalettes = () => setIsPalettesOpen((prevState) => !prevState);
 
   return (
-    <section className="flex flex-col gap-4 p-2 rounded-2xl">
+    <section className="flex flex-col gap-4 p-2">
       <ColorPicker />
 
       <div className="grid grid-cols-2 md:grid-cols-3 xl:col-span-4 auto-rows-min gap-2">
