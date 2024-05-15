@@ -44,7 +44,7 @@ export const Palette: FC<PaletteProps> = ({
   return (
     <article
       onClick={() => !isActive && selectPalette(id)}
-      className={`w-full flex flex-col justify-between gap-1 bg-gradient-to-b from-white via-white to-light rounded-lg shadow-md cursor-pointer transition-[opacity] ease-in-out duration-200 ${
+      className={`w-full flex flex-col justify-between gap-1 bg-gradient-to-b from-white via-white to-light rounded-lg shadow-lg shadow-gray-300 cursor-pointer transition-[opacity] ease-in-out duration-200 ${
         isActive
           ? "outline outline-2 outline-offset-2 outline-accent--pink"
           : "hover:opacity-90"
