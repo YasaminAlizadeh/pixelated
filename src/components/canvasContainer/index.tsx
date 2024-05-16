@@ -38,7 +38,7 @@ const CanvasContainer: FC<CanvasContainerProps> = ({
   return (
     <div
       ref={containerRef}
-      className="canvas__container relative grid place-items-center w-full h-full"
+      className="canvas__container relative row-start-2 md:col-start-2 md:col-span-1 md:row-start-1 md:row-span-2 grid place-items-center w-full h-full"
     >
       <BackgroundCanvas isGridDisplayed={isGridDisplayed} />
 

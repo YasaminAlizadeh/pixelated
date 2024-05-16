@@ -50,7 +50,7 @@ export const Palette: FC<PaletteProps> = ({
           : "hover:opacity-90"
       } ${extendClasses}`}
     >
-      <div className="grid grid-cols-5 gap-1 p-2.5">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1 p-2.5">
         {colors.map((color, index) => (
           <NormalColorBtn
             key={`${color.hex}_${index}`}

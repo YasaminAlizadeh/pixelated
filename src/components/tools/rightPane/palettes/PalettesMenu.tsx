@@ -14,7 +14,7 @@ const PalettesMenu = ({ toggleMenu }: { toggleMenu: () => void }) => {
   const editPalette = (id: string) => setEditingPaletteID(id);
 
   return (
-    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-3/4 grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)] grid-rows-[auto_minmax(0,1fr)] gap-4 p-4 bg-white shadow-md rounded-xl z-20">
+    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 md:w-1/2 h-1/2 md:h-3/4 grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] grid-rows-[minmax(0,1fr)_minmax(0,1fr)] md:grid-rows-[auto_minmax(0,1fr)] gap-4 p-4 bg-white shadow-md rounded-xl z-20">
       <header className="col-span-full grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-4 text-dark">
         <h3 className="h-full flex items-center justify-between text-base">
           Add a Palette
