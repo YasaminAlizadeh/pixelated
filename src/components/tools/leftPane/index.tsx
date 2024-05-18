@@ -12,12 +12,7 @@ interface LeftPaneProps {
 
 const LeftPane: FC<LeftPaneProps> = ({ isGridDisplayed, toggleGrid }) => {
   return (
-    <section className="max-h-64 md:max-h-full h-full row-start-3 md:row-start-2 flex flex-col gap-4 p-2">
-      <div className="md:hidden h-full">
-        {/* In Smaller Devices */}
-        <Layers />
-      </div>
-
+    <section className="h-full row-start-2 row-span-2 md:row-span-1 col-start-2 md:col-start-1 flex flex-col gap-4 p-2">
       <CanvasSizeForm />
 
       <div className="grid grid-cols-6 md:grid-cols-3 auto-rows-min gap-2">
@@ -27,6 +22,11 @@ const LeftPane: FC<LeftPaneProps> = ({ isGridDisplayed, toggleGrid }) => {
           isActive={isGridDisplayed}
         />
         <ExportImage />
+      </div>
+
+      <div className="md:hidden h-full">
+        {/* In Smaller Devices */}
+        <Layers />
       </div>
     </section>
   );

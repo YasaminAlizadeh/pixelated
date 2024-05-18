@@ -23,7 +23,7 @@ const Layers = () => {
   }, [isSelectingLayers, selectedLayers]);
 
   return (
-    <div className="relative h-full grid grid-rows-[auto_minmax(0,1fr)] gap-1 text-xs overflow-auto">
+    <div className="relative h-full grid grid-rows-[auto_minmax(0,1fr)] gap-1 text-xs">
       <header className="flex items-center justify-between">
         <h3>Layers</h3>
         <div className="flex items-center gap-1">

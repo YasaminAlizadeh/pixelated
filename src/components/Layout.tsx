@@ -29,7 +29,7 @@ const Layout = () => {
       {isMobile ? (
         <Navigate to="/mobile" />
       ) : (
-        <main className="grid grid-rows-[auto_minmax(0,1fr)_auto] grid-cols-[minmax(0,3fr)_minmax(0,1fr)] md:grid-cols-[min(17.5vw,13rem)_minmax(0,1fr)_min(17.5vw,13rem)] md:grid-rows-[auto_minmax(0,1fr)] gap-2 md:gap-4 min-h-screen max-h-screen p-2 md:p-4 bg-gradient-to-br from-light to-[#f2f2f2] text-accent--gray">
+        <main className="grid grid-rows-[auto_auto_minmax(0,1fr)] grid-cols-[minmax(0,3fr)_minmax(0,1fr)] md:grid-cols-[min(17.5vw,13rem)_minmax(0,1fr)_min(17.5vw,13rem)] md:grid-rows-[auto_minmax(0,1fr)] gap-2 md:gap-4 min-h-screen max-h-screen p-2 md:p-4 bg-gradient-to-br from-light to-[#f2f2f2] text-accent--gray">
           <header className="col-span-2 grid place-items-center md:place-items-start md:col-span-1">
             <h1 className="font-pixelify text-4xl bg-gradient-to-br from-accent--orange to-accent--pink w-fit text-transparent bg-clip-text mb-4">
               Pixelated
