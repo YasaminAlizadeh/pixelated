@@ -20,7 +20,7 @@ const ColorPicker = () => {
   }, [colorHistory]);
 
   return (
-    <div className="w-full flex [&_input]:bg-light [&_input]:text-dark [&_input]:text-center [&_input]:!shadow-sm [&_input]:!rounded-md [&_label]:!text-dark z-20">
+    <div className="w-full min-w-[10rem] flex [&_input]:bg-light [&_input]:text-dark [&_input]:text-center [&_input]:!shadow-sm [&_input]:!rounded-md [&_label]:!text-dark z-20">
       <SketchPicker
         color={currentColor}
         onChange={(color) => setCurrentColor(color.hex)}
@@ -37,6 +37,8 @@ const ColorPicker = () => {
         styles={{
           default: {
             picker: {
+              width: "100%",
+              height: "100%",
               borderRadius: "0.5rem",
               display: "flex",
               flexDirection: "column",

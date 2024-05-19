@@ -77,10 +77,10 @@ const RightPane: React.FC<{
   const togglePalettes = () => setIsPalettesOpen((prevState) => !prevState);
 
   return (
-    <section className="row-start-3 md:row-start-1 md:col-start-3 h-full row-span-2 grid grid-cols-[minmax(0,3fr)_minmax(0,1fr)] md:flex md:flex-col gap-4 p-2">
+    <section className="row-start-3 md:row-start-1 col-span-1 md:col-start-3 h-full row-span-2 grid grid-cols-[min-content,max-content,min-content] grid-rows-1 md:flex md:flex-col gap-2 md:gap-4 p-2">
       <ColorPicker />
 
-      <div className="grid grid-cols-1 grid-rows-4 md:grid-rows-2 md:grid-cols-3 xl:col-span-4 md:auto-rows-min gap-2">
+      <div className="flex flex-wrap gap-2">
         {appTools.map(
           (tool: {
             label: ToolLabels;

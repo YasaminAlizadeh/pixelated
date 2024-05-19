@@ -1,5 +1,6 @@
 import { createContext, useCallback, useState } from "react";
 import { PointChange } from "hooks/useHistory";
+import { rgbaToHex } from "utils/rgbaToHex";
 
 export type LayerDataType = {
   id: string;
@@ -35,6 +36,7 @@ export type CanvasContextType = {
   toggleLayerInSelectedLayers: (id: string) => void;
   getSelectedLayerData: (id: string, data: PointChange[][]) => void;
   getCanvasRef: (id: string, canvas: HTMLCanvasElement) => void;
+  setLayerBackground: (img: HTMLImageElement) => void;
 };
 
 export const CanvasContext = createContext<CanvasContextType | null>(null);
@@ -214,6 +216,101 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   };
 
+  const setLayerBackground = useCallback(
+    (img: HTMLImageElement) => {
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = img.naturalWidth;
+      tempCanvas.height = img.naturalHeight;
+      const tempCtx = tempCanvas.getContext("2d");
+
+      if (tempCtx) {
+        tempCtx.drawImage(img, 0, 0);
+      }
+
+      const { width, height } = selectedCanvasSize;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width * pixelSize;
+      canvas.height = height * pixelSize;
+      const ctx = canvas.getContext("2d");
+
+      if (ctx && tempCtx) {
+        const scaleX = canvas.width / img.naturalWidth;
+        const scaleY = canvas.height / img.naturalHeight;
+        const scale = Math.min(scaleX, scaleY);
+
+        const scaledWidth = img.naturalWidth * scale;
+        const scaledHeight = img.naturalHeight * scale;
+
+        const offsetX = Math.floor(
+          (canvas.width - scaledWidth) / pixelSize / 2
+        );
+        const offsetY = Math.floor(
+          (canvas.height - scaledHeight) / pixelSize / 2
+        );
+
+        ctx.drawImage(
+          tempCanvas,
+          0,
+          0,
+          img.naturalWidth,
+          img.naturalHeight,
+          offsetX,
+          offsetY,
+          scaledWidth,
+          scaledHeight
+        );
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+
+        console.log(data);
+
+        const newMove: PointChange[] = [];
+
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            const scaledX = Math.floor(x * pixelSize + offsetX);
+            const scaledY = Math.floor(y * pixelSize + offsetY);
+            const index = (scaledY * canvas.width + scaledX) * 4;
+            const [r, g, b, a] = [
+              data[index],
+              data[index + 1],
+              data[index + 2],
+              data[index + 3],
+            ];
+
+            if (a > 0) {
+              const color = rgbaToHex({ r, g, b });
+              newMove.push({
+                x: Math.floor(x + offsetX),
+                y: Math.floor(y + offsetY),
+                color: color.slice(0, -2),
+              });
+            }
+          }
+        }
+
+        console.log(offsetX, offsetY, newMove);
+
+        const newID = `${new Date().getTime()}`;
+
+        setLayers((prevLayers) => [
+          ...prevLayers,
+          {
+            id: newID,
+            name: "New Layer",
+            data: "",
+            defaultHistory: [newMove, []],
+            isHidden: false,
+          },
+        ]);
+
+        setActiveLayer(newID);
+      }
+    },
+    [selectedCanvasSize, activeLayer, pixelSize]
+  );
+
   return (
     <CanvasContext.Provider
       value={{
@@ -235,6 +332,7 @@ const CanvasProvider: React.FC<{ children: React.ReactNode }> = ({
         toggleLayerInSelectedLayers,
         getSelectedLayerData,
         getCanvasRef,
+        setLayerBackground,
       }}
     >
       {children}

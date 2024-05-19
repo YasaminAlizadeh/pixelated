@@ -44,13 +44,13 @@ export const Palette: FC<PaletteProps> = ({
   return (
     <article
       onClick={() => !isActive && selectPalette(id)}
-      className={`w-full flex flex-col justify-between gap-1 bg-gradient-to-b from-white via-white to-light rounded-lg shadow-lg shadow-gray-300 cursor-pointer transition-[opacity] ease-in-out duration-200 ${
+      className={`w-full min-w-[10rem] h-full flex flex-col justify-between gap-1 bg-gradient-to-b from-white via-white to-light rounded-lg shadow-lg shadow-gray-300 cursor-pointer transition-[opacity] ease-in-out duration-200 ${
         isActive
           ? "outline outline-2 outline-offset-2 outline-accent--pink"
           : "hover:opacity-90"
       } ${extendClasses}`}
     >
-      <div className="grid grid-cols-6 sm:grid-cols-4 md:grid-cols-5 gap-1 p-2.5">
+      <div className="grid grid-cols-6 sm:grid-cols-4 md:grid-cols-5 gap-1 p-2.5 overflow-auto">
         {colors.map((color, index) => (
           <NormalColorBtn
             key={`${color.hex}_${index}`}
