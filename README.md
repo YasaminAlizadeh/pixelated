@@ -52,7 +52,7 @@ This project was a fantastic exercise in managing complex, fine-grained state an
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/YasaminAlizadeh/pixelated.git](https://github.com/YasaminAlizadeh/pixelated.git)
+    git clone https://github.com/YasaminAlizadeh/pixelated.git
     cd pixelated
     ```
 
