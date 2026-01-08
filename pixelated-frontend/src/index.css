@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pixelify+Sans:wght@400..700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    @apply text-zinc-400 bg-zinc-900;
+  }
+
+  body {
+    font-family: "Inter", sans-serif;
+  }
+
+  /* Dark Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-zinc-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-zinc-700 rounded-full hover:bg-zinc-600 transition-colors;
+  }
+
+  /* Input Resets */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Range Slider Reset */
+  input[type="range"] {
+    @apply appearance-none bg-transparent cursor-pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    @apply appearance-none h-3 w-3 rounded-full bg-indigo-500 -mt-1 shadow-sm ring-2 ring-zinc-800;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    @apply w-full h-1 bg-zinc-700 rounded-full;
+  }
+}
