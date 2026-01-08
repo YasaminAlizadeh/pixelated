@@ -37,8 +37,7 @@
     "build": "tsc && vite build",
     "test": "vitest",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "postinstall": "husky install"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@tabler/core": "^1.0.0-beta20",
