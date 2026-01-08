@@ -43,10 +43,8 @@ const ToolsPanel: React.FC<ToolsPanelProps> = ({
       </div>
 
       <div
-        className={`flex gap-2 ${
-          orientation === "vertical"
-            ? "flex-wrap justify-between"
-            : "flex-nowrap"
+        className={`flex gap-2 flex-wrap ${
+          orientation === "vertical" ? "justify-between" : ""
         }`}
       >
         <ToolButton

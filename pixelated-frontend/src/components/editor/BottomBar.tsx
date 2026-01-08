@@ -15,9 +15,9 @@ const BottomBar = ({ className }: { className?: string }) => {
 
   return (
     <div
-      className={`bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20 ${className}`}
+      className={`bg-zinc-900 border-t border-zinc-800 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)] z-20 ${className}`}
     >
-      <div className="p-3 bg-gray-50 border-b border-gray-100 max-h-[40vh] overflow-y-auto">
+      <div className="p-3 bg-zinc-900 border-b border-zinc-800 max-h-[40vh] overflow-y-auto">
         {activeTab === "tools" && <ToolsPanel orientation="horizontal" />}
         {activeTab === "layers" && <LayersPanel />}
         {activeTab === "palettes" && <PalettesPanel />}
@@ -26,8 +26,10 @@ const BottomBar = ({ className }: { className?: string }) => {
       <div className="flex justify-around items-center h-16 pb-2">
         <button
           onClick={() => setActiveTab("tools")}
-          className={`flex flex-col items-center gap-1 w-full h-full justify-center ${
-            activeTab === "tools" ? "text-[#bd284b]" : "text-gray-400"
+          className={`flex flex-col items-center gap-1 w-full h-full justify-center transition-colors ${
+            activeTab === "tools"
+              ? "text-indigo-500"
+              : "text-zinc-500 hover:text-zinc-300"
           }`}
         >
           <IconTools size={24} stroke={1.5} />
@@ -35,8 +37,10 @@ const BottomBar = ({ className }: { className?: string }) => {
         </button>
         <button
           onClick={() => setActiveTab("layers")}
-          className={`flex flex-col items-center gap-1 w-full h-full justify-center ${
-            activeTab === "layers" ? "text-[#bd284b]" : "text-gray-400"
+          className={`flex flex-col items-center gap-1 w-full h-full justify-center transition-colors ${
+            activeTab === "layers"
+              ? "text-indigo-500"
+              : "text-zinc-500 hover:text-zinc-300"
           }`}
         >
           <IconLayersIntersect size={24} stroke={1.5} />
@@ -44,8 +48,10 @@ const BottomBar = ({ className }: { className?: string }) => {
         </button>
         <button
           onClick={() => setActiveTab("palettes")}
-          className={`flex flex-col items-center gap-1 w-full h-full justify-center ${
-            activeTab === "palettes" ? "text-[#bd284b]" : "text-gray-400"
+          className={`flex flex-col items-center gap-1 w-full h-full justify-center transition-colors ${
+            activeTab === "palettes"
+              ? "text-indigo-500"
+              : "text-zinc-500 hover:text-zinc-300"
           }`}
         >
           <IconPalette size={24} stroke={1.5} />

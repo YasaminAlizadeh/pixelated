@@ -177,21 +177,37 @@ const PaintingCanvas: FC<PaintingCanvasProps> = ({ id, defaultHistory }) => {
 
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
-    const getCoordinates = (e: MouseEvent) => {
+    const getPointerPos = (e: MouseEvent | TouchEvent) => {
       const rect = canvas.getBoundingClientRect();
-      const x = Math.floor((e.clientX - rect.left) / pixelSize);
-      const y = Math.floor((e.clientY - rect.top) / pixelSize);
-      return { x, y };
+      let clientX = 0;
+      let clientY = 0;
+
+      if (window.TouchEvent && e instanceof TouchEvent) {
+        const touch = e.touches[0] || e.changedTouches[0];
+        clientX = touch.clientX;
+        clientY = touch.clientY;
+      } else {
+        clientX = (e as MouseEvent).clientX;
+        clientY = (e as MouseEvent).clientY;
+      }
+
+      const offsetX = clientX - rect.left;
+      const offsetY = clientY - rect.top;
+
+      const x = Math.floor(offsetX / pixelSize);
+      const y = Math.floor(offsetY / pixelSize);
+
+      return { x, y, offsetX, offsetY };
     };
 
-    const handleAction = (e: MouseEvent) => {
+    const handleAction = (e: MouseEvent | TouchEvent) => {
       if (!ctx) return;
-      const { x, y } = getCoordinates(e);
+      const { x, y, offsetX, offsetY } = getPointerPos(e);
       const lastColor = colorHistory[colorHistory.length - 1];
       const currentColor = lastColor.hex;
 
       if (activeTool === "lighten" || activeTool === "darken") {
-        const pxInfo = getClickedColorInfo(ctx, e.offsetX, e.offsetY);
+        const pxInfo = getClickedColorInfo(ctx, offsetX, offsetY);
         if (pxInfo.hex !== "transparent") {
           const amount = activeTool === "lighten" ? 20 : -20;
           const newColor = adjustBrightness(pxInfo.hex!, amount);
@@ -249,7 +265,7 @@ const PaintingCanvas: FC<PaintingCanvasProps> = ({ id, defaultHistory }) => {
         const symmetricPoints = applySymmetry(points);
         handleBatchDraw(symmetricPoints);
       } else if (activeTool === "eyedropper") {
-        const info = getClickedColorInfo(ctx, e.offsetX, e.offsetY);
+        const info = getClickedColorInfo(ctx, offsetX, offsetY);
         if (info.hex !== "transparent") addToColorHistory(info);
       } else if (SHAPE_TOOLS.includes(activeTool) && startPos) {
         let points: Point[] = [];
@@ -281,17 +297,14 @@ const PaintingCanvas: FC<PaintingCanvasProps> = ({ id, defaultHistory }) => {
       }
     };
 
-    const onMouseDown = (e: MouseEvent) => {
-      const { x, y } = getCoordinates(e);
+    const onPointerDown = (e: MouseEvent | TouchEvent) => {
+      if (e.cancelable) e.preventDefault();
+
+      const { x, y, offsetX, offsetY } = getPointerPos(e);
       const currentColor = colorHistory[colorHistory.length - 1].hex;
 
       if (activeTool === "fill" && ctx) {
-        const rect = canvas.getBoundingClientRect();
-        const clickedColor = getClickedColorInfo(
-          ctx,
-          e.clientX - rect.left,
-          e.clientY - rect.top
-        ).hex!;
+        const clickedColor = getClickedColorInfo(ctx, offsetX, offsetY).hex!;
         handleFill(x, y, clickedColor, currentColor);
         return;
       }
@@ -307,14 +320,23 @@ const PaintingCanvas: FC<PaintingCanvasProps> = ({ id, defaultHistory }) => {
       }
     };
 
-    const onMouseMove = (e: MouseEvent) => {
+    const onPointerMove = (e: MouseEvent | TouchEvent) => {
+      if (e.cancelable) e.preventDefault();
+
       if (activeTool === "fill") return;
-      if (isDrawing || (activeTool === "eyedropper" && e.buttons === 1)) {
+
+      const isTouch = window.TouchEvent && e instanceof TouchEvent;
+      const isMouseDown = (e as MouseEvent).buttons === 1;
+
+      if (
+        isDrawing ||
+        (activeTool === "eyedropper" && (isMouseDown || isTouch))
+      ) {
         handleAction(e);
       }
     };
 
-    const onMouseUp = () => {
+    const onPointerUp = (e: MouseEvent | TouchEvent) => {
       if (activeTool === "fill") return;
       if (!isDrawing) return;
 
@@ -327,14 +349,24 @@ const PaintingCanvas: FC<PaintingCanvasProps> = ({ id, defaultHistory }) => {
       stopDrawing();
     };
 
-    canvas.addEventListener("mousedown", onMouseDown);
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp);
+    canvas.addEventListener("mousedown", onPointerDown);
+    canvas.addEventListener("touchstart", onPointerDown, { passive: false });
+
+    window.addEventListener("mousemove", onPointerMove);
+    window.addEventListener("touchmove", onPointerMove, { passive: false });
+
+    window.addEventListener("mouseup", onPointerUp);
+    window.addEventListener("touchend", onPointerUp);
 
     return () => {
-      canvas.removeEventListener("mousedown", onMouseDown);
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
+      canvas.removeEventListener("mousedown", onPointerDown);
+      canvas.removeEventListener("touchstart", onPointerDown);
+
+      window.removeEventListener("mousemove", onPointerMove);
+      window.removeEventListener("touchmove", onPointerMove);
+
+      window.removeEventListener("mouseup", onPointerUp);
+      window.removeEventListener("touchend", onPointerUp);
     };
   }, [
     isActiveLayer,
