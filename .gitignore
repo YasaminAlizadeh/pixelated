@@ -8,6 +8,7 @@ pixelated-frontend/dist/
 pixelated-frontend/.vite/
 pixelated-frontend/build/
 pixelated-frontend/.turbo/
+pixelated-frontend/.eslintcache
 
 # Environment variables
 .env
