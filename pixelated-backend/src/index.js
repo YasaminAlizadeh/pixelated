@@ -20,6 +20,10 @@ app.get("/", (req, res) => {
 app.use("/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+if (process.env.NODE_ENV !== "production") {
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
+}
+
+export default app;
