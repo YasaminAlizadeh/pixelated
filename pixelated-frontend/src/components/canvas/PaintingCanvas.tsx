@@ -336,7 +336,7 @@ const PaintingCanvas: FC<PaintingCanvasProps> = ({ id, defaultHistory }) => {
       }
     };
 
-    const onPointerUp = (e: MouseEvent | TouchEvent) => {
+    const onPointerUp = () => {
       if (activeTool === "fill") return;
       if (!isDrawing) return;
 
